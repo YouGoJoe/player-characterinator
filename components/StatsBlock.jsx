@@ -7,11 +7,7 @@ const WeakAlert = () => {
   const { isWeak } = useContext(AppContext);
   if (!isWeak) return null;
 
-  return (
-    <div>
-      <alert>Weak char alert!</alert>
-    </div>
-  );
+  return <div>Weak char alert!</div>;
 };
 
 const BoringAlert = () => {
@@ -19,11 +15,7 @@ const BoringAlert = () => {
 
   if (!isBoring) return null;
 
-  return (
-    <div>
-      <alert>All-rounder alert!</alert>
-    </div>
-  );
+  return <div>All-rounder alert!</div>;
 };
 
 const StatsBlock = () => {
