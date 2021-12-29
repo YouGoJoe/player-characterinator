@@ -18,6 +18,8 @@ const valueToMod = {
   16: "+3",
   17: "+3",
   18: "+4",
+  19: "+5",
+  20: "+5",
 };
 
 const StatBlock = ({ name, value }) => {

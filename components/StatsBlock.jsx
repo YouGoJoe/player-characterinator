@@ -29,7 +29,6 @@ const BoringAlert = () => {
 const StatsBlock = () => {
   const { stats, actions } = useContext(AppContext);
 
-  console.log(stats)
   return (
     <div>
       <h2>Your Stats:</h2>
