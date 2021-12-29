@@ -11,14 +11,34 @@ const d6 = () => Math.ceil(Math.random() * 6);
 
 const rollIt = () => sum([d6(), d6(), d6(), d6()].sort().slice(1));
 
-const rollStats = () => ({
-  str: rollIt(),
-  dex: rollIt(),
-  con: rollIt(),
-  int: rollIt(),
-  wis: rollIt(),
-  cha: rollIt(),
-});
+const races = [
+  "Mountain Dwarf",
+  "Half-orc",
+  "Dragonborn",
+  "Human",
+  "Forest Gnome",
+  "Stout Halfling",
+  "Rock Gnome",
+  "High Elf",
+  "Tiefling",
+  "Hill Dwarf",
+  "Wood Elf",
+  "Half-Elf",
+  "Drow",
+  "Lightfoot Halfling",
+];
+
+const rollStats = () => {
+  return {
+    race: races[Math.floor(Math.random() * races.length)],
+    str: rollIt(),
+    dex: rollIt(),
+    con: rollIt(),
+    int: rollIt(),
+    wis: rollIt(),
+    cha: rollIt(),
+  };
+};
 
 const isWeakChar = (stats) =>
   stats.str + stats.dex + stats.con + stats.int + stats.wis + stats.cha <
