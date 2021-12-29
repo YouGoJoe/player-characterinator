@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import StatsBlock from "@components/StatsBlock";
+import CharOptions from "@components/CharOptions";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
 
       <main>
         <Header title="Prodigy Hackathon 2021!" />
+        <CharOptions />
         <StatsBlock />
       </main>
 

@@ -1,17 +1,11 @@
 import { useContext } from "react";
-import { max } from "lodash";
 import StatBlock from "./StatBlock";
 import AppContext from "../context/AppContext";
+import { Button } from "@mui/material";
 
 const WeakAlert = () => {
-  const minStatsThreshold = 68;
-  const { stats } = useContext(AppContext);
-
-  if (
-    stats.str + stats.dex + stats.con + stats.int + stats.wis + stats.cha >
-    minStatsThreshold
-  )
-    return null;
+  const { isWeak } = useContext(AppContext);
+  if (!isWeak()) return null;
 
   return (
     <div>
@@ -21,13 +15,9 @@ const WeakAlert = () => {
 };
 
 const BoringAlert = () => {
-  const { stats } = useContext(AppContext);
+  const { isBoring } = useContext(AppContext);
 
-  if (
-    max([stats.str, stats.dex, stats.con, stats.int, stats.wis, stats.cha]) >=
-    15
-  )
-    return null;
+  if (!isBoring()) return null;
 
   return (
     <div>
@@ -40,6 +30,7 @@ const StatsBlock = () => {
   const { stats } = useContext(AppContext);
   return (
     <div>
+      <h2>Your Stats:</h2>
       <StatBlock name="Strength" value={stats.str} />
       <StatBlock name="Dexterity" value={stats.dex} />
       <StatBlock name="Constitution" value={stats.con} />
@@ -48,6 +39,7 @@ const StatsBlock = () => {
       <StatBlock name="Charisma" value={stats.cha} />
       <WeakAlert />
       <BoringAlert />
+      <Button variant="contained">Re-roll stats</Button>
     </div>
   );
 };
