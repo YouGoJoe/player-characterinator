@@ -5,7 +5,7 @@ import { Button } from "@mui/material";
 
 const WeakAlert = () => {
   const { isWeak } = useContext(AppContext);
-  if (!isWeak()) return null;
+  if (!isWeak) return null;
 
   return (
     <div>
@@ -17,7 +17,7 @@ const WeakAlert = () => {
 const BoringAlert = () => {
   const { isBoring } = useContext(AppContext);
 
-  if (!isBoring()) return null;
+  if (!isBoring) return null;
 
   return (
     <div>
@@ -27,7 +27,7 @@ const BoringAlert = () => {
 };
 
 const StatsBlock = () => {
-  const { stats } = useContext(AppContext);
+  const { stats, actions } = useContext(AppContext);
   return (
     <div>
       <h2>Your Stats:</h2>
@@ -39,7 +39,9 @@ const StatsBlock = () => {
       <StatBlock name="Charisma" value={stats.cha} />
       <WeakAlert />
       <BoringAlert />
-      <Button variant="contained">Re-roll stats</Button>
+      <Button variant="contained" onClick={() => actions.reRoll()}>
+        Re-roll stats
+      </Button>
     </div>
   );
 };
