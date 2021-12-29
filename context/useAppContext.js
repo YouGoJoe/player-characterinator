@@ -11,7 +11,40 @@ const showMore = false;
 const allowWeak = false;
 const allowBoring = true;
 
+const BARBARIAN = "Barbarian";
+const BARD = "Bard";
+const CLERIC = "Cleric";
+const DRUID = "Druid";
+const FIGHTER = "Fighter";
+const MONK = "Monk";
+const PALADIN = "Paladin";
+const RANGER = "Ranger";
+const ROGUE = "Rogue";
+const SORCERER = "Sorcerer";
+const WIZARD = "Wizard";
+const WARLOCK = "Warlock";
+
+const classes = [
+  BARBARIAN,
+  BARD,
+  CLERIC,
+  DRUID,
+  FIGHTER,
+  MONK,
+  PALADIN,
+  RANGER,
+  ROGUE,
+  SORCERER,
+  WIZARD,
+  WARLOCK,
+];
+
+const pickClass = (stats) => {
+  return classes[Math.floor(Math.random() * classes.length)];
+};
+
 const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
+  const recommendedClass = pickClass(rolledStats.stats);
   const [state, dispatch] = useReducer(
     {
       toggleAllowWeak: (draft) => {
@@ -27,11 +60,13 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
         const newRolledStats = rollStats(draft);
         draft.stats = newRolledStats.stats;
         draft.race = newRolledStats.race;
+        draft.recommendedClass = pickClass(newRolledStats.stats);
       },
     },
     {
       stats: rolledStats.stats,
       race: rolledStats.race,
+      recommendedClass,
       weakThreshold,
       boringThreshold,
       allowWeak,

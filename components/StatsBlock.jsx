@@ -19,12 +19,13 @@ const BoringAlert = () => {
 };
 
 const StatsBlock = () => {
-  const { stats, race, actions } = useContext(AppContext);
+  const { stats, race, recommendedClass, actions } = useContext(AppContext);
 
   return (
     <div>
       <h2>Your Stats:</h2>
       <h3>Your race is: {race}</h3>
+      <h3>Your class is: {recommendedClass}</h3>
       <StatBlock name="Strength" value={stats.str} />
       <StatBlock name="Dexterity" value={stats.dex} />
       <StatBlock name="Constitution" value={stats.con} />
