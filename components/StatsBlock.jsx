@@ -1,20 +1,18 @@
+import { useContext } from "react";
+
 import StatBlock from "./StatBlock";
-
-import { sum, max } from "lodash";
-
-const d6 = () => Math.ceil(Math.random() * 6);
-
-const rollIt = () => sum([d6(), d6(), d6(), d6()].sort().slice(1));
+import AppContext from "../context/AppContext";
 
 const StatsBlock = () => {
+  const { stats } = useContext(AppContext);
   return (
     <div>
-      <StatBlock name="Strength" value={rollIt()} />
-      <StatBlock name="Dexterity" value={rollIt()} />
-      <StatBlock name="Constitution" value={rollIt()} />
-      <StatBlock name="Intelligence" value={rollIt()} />
-      <StatBlock name="Wisdom" value={rollIt()} />
-      <StatBlock name="Charisma" value={rollIt()} />
+      <StatBlock name="Strength" value={stats.str} />
+      <StatBlock name="Dexterity" value={stats.dex} />
+      <StatBlock name="Constitution" value={stats.con} />
+      <StatBlock name="Intelligence" value={stats.int} />
+      <StatBlock name="Wisdom" value={stats.wis} />
+      <StatBlock name="Charisma" value={stats.cha} />
     </div>
   );
 };
