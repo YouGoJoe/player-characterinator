@@ -28,7 +28,7 @@ const isBoringChar = (stats) =>
   max([stats.str, stats.dex, stats.con, stats.int, stats.wis, stats.cha]) <
   boringThreshold;
 
-const rollStatsWithOptions = () => {
+const rollStatsWithOptions = ({ allowBoring, allowWeak }) => {
   let tempStats = rollStats();
   while (
     (!allowBoring && isBoringChar(tempStats)) ||
@@ -40,7 +40,9 @@ const rollStatsWithOptions = () => {
   return tempStats;
 };
 
-const useAppContext = (stats = rollStatsWithOptions()) => {
+const useAppContext = (
+  stats = rollStatsWithOptions({ allowBoring, allowWeak })
+) => {
   const [state, dispatch] = useReducer(
     {
       toggleAllowWeak: (draft) => {
@@ -50,14 +52,7 @@ const useAppContext = (stats = rollStatsWithOptions()) => {
         draft.allowBoring = !draft.allowBoring;
       },
       reRoll: (draft) => {
-        let tempStats = rollStats();
-        while (
-          (!draft.allowBoring && isBoringChar(tempStats)) ||
-          (!draft.allowWeak && isWeakChar(tempStats))
-        ) {
-          tempStats = rollStats();
-        }
-        draft.stats = tempStats;
+        draft.stats = rollStatsWithOptions(draft);
       },
     },
     { stats, weakThreshold, boringThreshold, allowWeak, allowBoring }
