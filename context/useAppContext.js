@@ -4,6 +4,7 @@ import { sum, max } from "lodash";
 
 const weakThreshold = 68;
 const boringThreshold = 15;
+const showMore = false;
 const allowWeak = false;
 const allowBoring = true;
 
@@ -71,16 +72,20 @@ const useAppContext = (
       toggleAllowBoring: (draft) => {
         draft.allowBoring = !draft.allowBoring;
       },
+      toggleShowMore: (draft) => {
+        draft.showMore = !draft.showMore;
+      },
       reRoll: (draft) => {
         draft.stats = rollStatsWithOptions(draft);
       },
     },
-    { stats, weakThreshold, boringThreshold, allowWeak, allowBoring }
+    { stats, weakThreshold, boringThreshold, allowWeak, allowBoring, showMore }
   );
 
   const actions = React.useRef({
     toggleAllowWeak: () => dispatch({ type: "toggleAllowWeak" }),
     toggleAllowBoring: () => dispatch({ type: "toggleAllowBoring" }),
+    toggleShowMore: () => dispatch({ type: "toggleShowMore" }),
     reRoll: () => dispatch({ type: "reRoll" }),
   });
 

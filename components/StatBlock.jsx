@@ -1,3 +1,6 @@
+import { useContext } from "react";
+import AppContext from "../context/AppContext";
+
 const valueToMod = {
   3: "-4",
   4: "-3",
@@ -18,9 +21,10 @@ const valueToMod = {
 };
 
 const StatBlock = ({ name, value }) => {
+  const { showMore } = useContext(AppContext);
   return (
     <div style={{ marginBottom: "8px" }}>
-      {name} is {value} ({valueToMod[value]} MOD)
+      {name} is {value} {showMore && `(${valueToMod[value]} MOD)`}
     </div>
   );
 };
