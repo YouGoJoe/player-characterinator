@@ -66,12 +66,14 @@ const rollStats = () => {
   const race = races[Math.floor(Math.random() * races.length)];
   return {
     race,
-    str: rollIt() + strBonus(race),
-    dex: rollIt() + dexBonus(race),
-    con: rollIt() + conBonus(race),
-    int: rollIt() + intBonus(race),
-    wis: rollIt() + wisBonus(race),
-    cha: rollIt() + chaBonus(race),
+    stats: {
+      str: rollIt() + strBonus(race),
+      dex: rollIt() + dexBonus(race),
+      con: rollIt() + conBonus(race),
+      int: rollIt() + intBonus(race),
+      wis: rollIt() + wisBonus(race),
+      cha: rollIt() + chaBonus(race),
+    },
   };
 };
 
@@ -86,8 +88,8 @@ const isBoringChar = (stats) =>
 const rollStatsWithOptions = ({ allowBoring, allowWeak }) => {
   let tempStats = rollStats();
   while (
-    (!allowBoring && isBoringChar(tempStats)) ||
-    (!allowWeak && isWeakChar(tempStats))
+    (!allowBoring && isBoringChar(tempStats.stats)) ||
+    (!allowWeak && isWeakChar(tempStats.stats))
   ) {
     tempStats = rollStats();
   }
@@ -96,7 +98,7 @@ const rollStatsWithOptions = ({ allowBoring, allowWeak }) => {
 };
 
 const useAppContext = (
-  stats = rollStatsWithOptions({ allowBoring, allowWeak })
+  rolledStats = rollStatsWithOptions({ allowBoring, allowWeak })
 ) => {
   const [state, dispatch] = useReducer(
     {
@@ -110,10 +112,20 @@ const useAppContext = (
         draft.showMore = !draft.showMore;
       },
       reRoll: (draft) => {
-        draft.stats = rollStatsWithOptions(draft);
+        const newRolledStats = rollStatsWithOptions(draft);
+        draft.stats = newRolledStats.stats;
+        draft.race = newRolledStats.race;
       },
     },
-    { stats, weakThreshold, boringThreshold, allowWeak, allowBoring, showMore }
+    {
+      stats: rolledStats.stats,
+      race: rolledStats.race,
+      weakThreshold,
+      boringThreshold,
+      allowWeak,
+      allowBoring,
+      showMore,
+    }
   );
 
   const actions = React.useRef({
