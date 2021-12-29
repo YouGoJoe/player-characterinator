@@ -1,5 +1,5 @@
 import React from "react";
-import { sum, max } from "lodash";
+import { sum } from "lodash";
 
 const d6 = () => Math.ceil(Math.random() * 6);
 
