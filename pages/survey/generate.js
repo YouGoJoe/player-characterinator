@@ -10,7 +10,7 @@ export default function Random() {
   const { actions } = useContext(AppContext);
 
   useEffect(() => {
-    actions.reRollWithBiases();
+    actions.reRoll();
   }, []);
 
   return (

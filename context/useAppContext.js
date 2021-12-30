@@ -37,8 +37,8 @@ const useAppContext = () => {
           (raceBias) => raceBias !== event
         );
       },
-      reRoll: (draft) => {
-        const newRolledStats = rollStats(draft);
+      reRoll: (draft, _, state) => {
+        const newRolledStats = rollStats(state);
         const recommendedClass = pickClass(newRolledStats.stats);
         draft.stats = newRolledStats.stats;
         draft.race = newRolledStats.race;
@@ -68,7 +68,6 @@ const useAppContext = () => {
     addRaceBias: (payload) => dispatch({ type: "addRaceBias", payload }),
     removeRaceBias: (payload) => dispatch({ type: "removeRaceBias", payload }),
     reRoll: () => dispatch({ type: "reRoll" }),
-    reRollWithBiases: () => dispatch({ type: "reRoll" }),
   });
 
   return [

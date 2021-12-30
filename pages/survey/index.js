@@ -103,6 +103,7 @@ export default function Survey() {
                 />
               }
               label={label}
+              key={label}
             />
           ))}
         </FormGroup>
@@ -124,6 +125,7 @@ export default function Survey() {
                 />
               }
               label={label}
+              key={label}
             />
           ))}
         </FormGroup>

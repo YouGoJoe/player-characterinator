@@ -21,7 +21,7 @@ export default function Home() {
         </Link>
         <Link href="/survey">
           <Button variant="contained">
-            Answer 3 quick questions to get a personalized character!
+            Answer two quick questions to get a personalized character!
           </Button>
         </Link>
       </main>

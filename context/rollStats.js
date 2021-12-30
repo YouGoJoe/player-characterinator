@@ -1,4 +1,4 @@
-import { sum, max } from "lodash";
+import { sum, max, flatten } from "lodash";
 import pickOne from "utils/pickOne";
 
 export const weakThreshold = 68;
@@ -20,7 +20,7 @@ const TIEFLING = "Tiefling";
 const H_DWARF = "Hill Dwarf";
 const W_ELF = "Wood Elf";
 const HALF_ELF = "Half-Elf";
-const D_ELF = "Drow";
+const D_ELF = "Drow/Dark Elf";
 const L_HALFLING = "Lightfoot Halfling";
 
 const races = [
@@ -40,6 +40,16 @@ const races = [
   L_HALFLING,
 ];
 
+const pickOneBias = (raceBiases) => {
+  return pickOne(
+    flatten(
+      raceBiases.map((raceBias) =>
+        races.filter((raceName) => raceName.toLowerCase().includes(raceBias))
+      )
+    )
+  );
+};
+
 const bonus = (twoPointRaces, onePointRaces, race) => {
   if (twoPointRaces.includes(race)) return 2;
   else if (onePointRaces.includes(race)) return 1;
@@ -58,8 +68,8 @@ const wisBonus = (race) => bonus([], [H_DWARF, HUMAN, W_ELF], race);
 const chaBonus = (race) =>
   bonus([HALF_ELF, TIEFLING], [DRAGONBORN, D_ELF, HUMAN, L_HALFLING], race);
 
-const rollStats = () => {
-  const race = pickOne(races);
+const rollStats = ({ classBiases, raceBiases }) => {
+  const race = raceBiases.length ? pickOneBias(raceBiases) : pickOne(races);
   return {
     race,
     stats: {
@@ -81,13 +91,18 @@ export const isBoringChar = (stats) =>
   max([stats.str, stats.dex, stats.con, stats.int, stats.wis, stats.cha]) <
   boringThreshold;
 
-const rollStatsWithOptions = ({ allowBoring, allowWeak }) => {
-  let tempStats = rollStats();
+const rollStatsWithOptions = ({
+  allowBoring,
+  allowWeak,
+  classBiases,
+  raceBiases,
+}) => {
+  let tempStats = rollStats({ classBiases, raceBiases });
   while (
     (!allowBoring && isBoringChar(tempStats.stats)) ||
     (!allowWeak && isWeakChar(tempStats.stats))
   ) {
-    tempStats = rollStats();
+    tempStats = rollStats({ classBiases, raceBiases });
   }
 
   return tempStats;
