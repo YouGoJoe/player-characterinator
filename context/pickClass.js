@@ -46,16 +46,21 @@ const pickClass = (stats) => {
     "desc"
   );
 
-  // tie for top stat. pick one from two highest stats
-  if (orderedStats[0].value === orderedStats[1].value) {
+  // tie for top stat. pick one from two highest stats (as long as it's not CON)
+  const [topStat, secondStat] = orderedStats;
+  if (
+    topStat.value === secondStat.value &&
+    topStat.name !== "con" &&
+    secondStat.name !== "con"
+  ) {
     return pickOne([
-      ...classesByStatName[orderedStats[0].name],
-      ...classesByStatName[orderedStats[1].name],
+      ...classesByStatName[topStat.name],
+      ...classesByStatName[secondStat.name],
     ]);
   }
 
   // stats heavily bias towards one class
-  const topTwo = [orderedStats[0].name, orderedStats[1].name].sort();
+  const topTwo = [topStat.name, secondStat.name].sort();
 
   if (isEqual(topTwo, ["dex", "wis"])) return MONK;
   if (isEqual(topTwo, ["cha", "str"])) return PALADIN;
@@ -64,14 +69,13 @@ const pickClass = (stats) => {
   if (isEqual(topTwo, ["dex", "con"])) return BARBARIAN;
 
   // bias class based on highest stat
-  let highestStat = orderedStats[0];
+  let highestStat = topStat;
 
   // Lots of Wizards showing up. This helps mitigate the Wizard bias
   if (highestStat.name === "int" && Math.random() > 0.4)
-    highestStat = orderedStats[1];
+    highestStat = secondStat;
   // ditto Barbarians
-  if (highestStat.name === "con")
-    highestStat = orderedStats[1];
+  if (highestStat.name === "con") highestStat = secondStat;
 
   return pickOne(classesByStatName[highestStat.name]);
 };
