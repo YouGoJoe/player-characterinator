@@ -1,4 +1,5 @@
 import { sum, max } from "lodash";
+import pickOne from "utils/pickOne";
 
 export const weakThreshold = 68;
 export const boringThreshold = 15;
@@ -58,7 +59,7 @@ const chaBonus = (race) =>
   bonus([HALF_ELF, TIEFLING], [DRAGONBORN, D_ELF, HUMAN, L_HALFLING], race);
 
 const rollStats = () => {
-  const race = races[Math.floor(Math.random() * races.length)];
+  const race = pickOne(races);
   return {
     race,
     stats: {
