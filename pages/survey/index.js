@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import Head from "next/head";
+import Link from "next/link";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import {
@@ -7,6 +8,7 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
+  Button,
 } from "@mui/material";
 import AppContext from "../../context/AppContext";
 
@@ -83,7 +85,10 @@ export default function Survey() {
 
       <main>
         <Header title="Prodigy Hackathon 2021!" />
-        <h2>Select all options below that sound fun to you, and we will <br /> generate a character that matches <i>some</i> of those choices</h2>
+        <h2>
+          Select all options below that sound fun to you, and we will <br />{" "}
+          generate a character that matches <i>some</i> of those choices
+        </h2>
         <FormLabel component="legend">
           In battle, what abilities does your character prefer to rely on?
         </FormLabel>
@@ -125,7 +130,11 @@ export default function Survey() {
 
         <hr />
 
-        
+        <Link href="/survey/generate">
+          <Button variant="contained" style={{ marginBottom: "8px" }}>
+            Generate character!
+          </Button>
+        </Link>
       </main>
 
       <Footer />

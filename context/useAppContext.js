@@ -68,6 +68,7 @@ const useAppContext = () => {
     addRaceBias: (payload) => dispatch({ type: "addRaceBias", payload }),
     removeRaceBias: (payload) => dispatch({ type: "removeRaceBias", payload }),
     reRoll: () => dispatch({ type: "reRoll" }),
+    reRollWithBiases: () => dispatch({ type: "reRoll" }),
   });
 
   return [
