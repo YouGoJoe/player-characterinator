@@ -7,19 +7,11 @@ import rollStats, {
   isBoringChar,
 } from "./rollStats";
 import pickClass, { allClasses } from "context/pickClass";
-import valueToModifier from "utils/valueToModifier";
+import deriveAC from "context/deriveAC";
 
 const showMore = false;
 const allowWeak = false;
 const allowBoring = true;
-
-const deriveAC = (charClass, stats) => {
-  if (charClass === allClasses.MONK)
-    return 10 + valueToModifier(stats.wis) + valueToModifier(stats.dex);
-  if (charClass === allClasses.BARBARIAN)
-    return 10 + valueToModifier(stats.con) + valueToModifier(stats.dex);
-  return 12;
-};
 
 const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
   const [state, dispatch] = useReducer(
