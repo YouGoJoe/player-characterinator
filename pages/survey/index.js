@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import AppContext from "../../context/AppContext";
 
-export default function Home() {
+export default function Survey() {
   const { classBiases, actions } = useContext(AppContext);
 
   const handleClassChange = ({ target }) => {

@@ -6,7 +6,7 @@ import StatsBlock from "@components/StatsBlock";
 import CharOptions from "@components/CharOptions";
 import AppContext from "../../context/AppContext";
 
-export default function Home() {
+export default function Random() {
   const { actions } = useContext(AppContext);
 
   useEffect(() => {
