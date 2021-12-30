@@ -29,6 +29,14 @@ const useAppContext = () => {
           (classBias) => classBias !== event
         );
       },
+      addRaceBias: (draft, event) => {
+        if (!draft.raceBiases.includes(event)) draft.raceBiases.push(event);
+      },
+      removeRaceBias: (draft, event) => {
+        draft.raceBiases = draft.raceBiases.filter(
+          (raceBias) => raceBias !== event
+        );
+      },
       reRoll: (draft) => {
         const newRolledStats = rollStats(draft);
         const recommendedClass = pickClass(newRolledStats.stats);
@@ -46,6 +54,7 @@ const useAppContext = () => {
       allowBoring: true,
       showMore: false,
       classBiases: [],
+      raceBiases: [],
     }
   );
 
@@ -56,6 +65,8 @@ const useAppContext = () => {
     addClassBias: (payload) => dispatch({ type: "addClassBias", payload }),
     removeClassBias: (payload) =>
       dispatch({ type: "removeClassBias", payload }),
+    addRaceBias: (payload) => dispatch({ type: "addRaceBias", payload }),
+    removeRaceBias: (payload) => dispatch({ type: "removeRaceBias", payload }),
     reRoll: () => dispatch({ type: "reRoll" }),
   });
 

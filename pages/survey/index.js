@@ -10,14 +10,67 @@ import {
 } from "@mui/material";
 import AppContext from "../../context/AppContext";
 
+const classBoxes = [
+  {
+    name: "martial",
+    label: "Weapons and might (a warrior)",
+  },
+  {
+    name: "spells",
+    label: "Spellcasting",
+  },
+  {
+    name: "stealth",
+    label: "Stealth and cunning (like a burglar or thief)",
+  },
+];
+const raceBoxes = [
+  {
+    name: "human",
+    label: "Aragorn, Eowyn, or Bard (Human)",
+  },
+  {
+    name: "dwarf",
+    label: "Thorin or Gimli",
+  },
+  {
+    name: "elf",
+    label: "Legolas, Galadriel, Arwen, or Elrond",
+  },
+  {
+    name: "halfling",
+    label: "Bilbo, Mrs. Proudfoot, or Frodo",
+  },
+  {
+    name: "half-orc",
+    label: "An orc",
+  },
+  {
+    name: "dragonborn",
+    label: "Smaug",
+  },
+  {
+    name: "tiefling",
+    label: "Sauron",
+  },
+];
+
 export default function Survey() {
-  const { classBiases, actions } = useContext(AppContext);
+  const { classBiases, raceBiases, actions } = useContext(AppContext);
 
   const handleClassChange = ({ target }) => {
     if (target.checked) {
       actions.addClassBias(target.name);
     } else {
       actions.removeClassBias(target.name);
+    }
+  };
+
+  const handleRaceChange = ({ target }) => {
+    if (target.checked) {
+      actions.addRaceBias(target.name);
+    } else {
+      actions.removeRaceBias(target.name);
     }
   };
 
@@ -30,41 +83,49 @@ export default function Survey() {
 
       <main>
         <Header title="Prodigy Hackathon 2021!" />
+        <h2>Select all options below that sound fun to you, and we will <br /> generate a character that matches <i>some</i> of those choices</h2>
         <FormLabel component="legend">
           In battle, what abilities does your character prefer to rely on?
         </FormLabel>
         <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={classBiases.includes("martial")}
-                onChange={handleClassChange}
-                name="martial"
-              />
-            }
-            label="Weapons and might (a warrior)"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={classBiases.includes("spells")}
-                onChange={handleClassChange}
-                name="spells"
-              />
-            }
-            label="Spellcasting"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={classBiases.includes("stealth")}
-                onChange={handleClassChange}
-                name="stealth"
-              />
-            }
-            label="Stealth and cunning (like a burglar or thief)"
-          />
+          {classBoxes.map(({ name, label }) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={classBiases.includes(name)}
+                  onChange={handleClassChange}
+                  name={name}
+                />
+              }
+              label={label}
+            />
+          ))}
         </FormGroup>
+
+        <hr />
+
+        <FormLabel component="legend">
+          As far as race goes, which Lord of the Rings character is your
+          character most like?
+        </FormLabel>
+        <FormGroup>
+          {raceBoxes.map(({ name, label }) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={raceBiases.includes(name)}
+                  onChange={handleRaceChange}
+                  name={name}
+                />
+              }
+              label={label}
+            />
+          ))}
+        </FormGroup>
+
+        <hr />
+
+        
       </main>
 
       <Footer />
