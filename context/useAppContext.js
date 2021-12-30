@@ -6,14 +6,10 @@ import rollStats, {
   boringThreshold,
   isBoringChar,
 } from "./rollStats";
-import pickClass, { allClasses } from "context/pickClass";
+import pickClass from "context/pickClass";
 import deriveAC from "context/deriveAC";
 
-const showMore = false;
-const allowWeak = false;
-const allowBoring = true;
-
-const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
+const useAppContext = () => {
   const [state, dispatch] = useReducer(
     {
       toggleAllowWeak: (draft) => {
@@ -35,13 +31,12 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
       },
     },
     {
-      stats: rolledStats.stats,
-      race: rolledStats.race,
+      stats: {},
       weakThreshold,
       boringThreshold,
-      allowWeak,
-      allowBoring,
-      showMore,
+      allowWeak: false,
+      allowBoring: true,
+      showMore: false,
     }
   );
 
@@ -52,13 +47,10 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
     reRoll: () => dispatch({ type: "reRoll" }),
   });
 
-  const recommendedClass = pickClass(state.stats);
   return [
     {
       isWeak: isWeakChar(state.stats),
       isBoring: isBoringChar(state.stats),
-      recommendedClass,
-      armourClass: deriveAC(recommendedClass, state.stats),
 
       ...state,
     },

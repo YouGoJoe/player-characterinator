@@ -15,7 +15,7 @@ export default function Home() {
       <main>
         <Header title="Prodigy Hackathon 2021!" />
         <Link href="/random">
-          <Button variant="contained" style={{ marginBottom: "8px" }} Í>
+          <Button variant="contained" style={{ marginBottom: "8px" }}>
             Get a random character!
           </Button>
         </Link>

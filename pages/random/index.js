@@ -1,10 +1,18 @@
+import { useContext, useEffect } from "react";
 import Head from "next/head";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import StatsBlock from "@components/StatsBlock";
 import CharOptions from "@components/CharOptions";
+import AppContext from "../../context/AppContext";
 
 export default function Home() {
+  const { actions } = useContext(AppContext);
+
+  useEffect(() => {
+    actions.reRoll();
+  }, []);
+
   return (
     <div className="container">
       <Head>
