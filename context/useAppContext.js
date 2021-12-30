@@ -21,6 +21,14 @@ const useAppContext = () => {
       toggleShowMore: (draft) => {
         draft.showMore = !draft.showMore;
       },
+      addClassBias: (draft, event) => {
+        if (!draft.classBiases.includes(event)) draft.classBiases.push(event);
+      },
+      removeClassBias: (draft, event) => {
+        draft.classBiases = draft.classBiases.filter(
+          (classBias) => classBias !== event
+        );
+      },
       reRoll: (draft) => {
         const newRolledStats = rollStats(draft);
         const recommendedClass = pickClass(newRolledStats.stats);
@@ -37,6 +45,7 @@ const useAppContext = () => {
       allowWeak: false,
       allowBoring: true,
       showMore: false,
+      classBiases: [],
     }
   );
 
@@ -44,6 +53,9 @@ const useAppContext = () => {
     toggleAllowWeak: () => dispatch({ type: "toggleAllowWeak" }),
     toggleAllowBoring: () => dispatch({ type: "toggleAllowBoring" }),
     toggleShowMore: () => dispatch({ type: "toggleShowMore" }),
+    addClassBias: (payload) => dispatch({ type: "addClassBias", payload }),
+    removeClassBias: (payload) =>
+      dispatch({ type: "removeClassBias", payload }),
     reRoll: () => dispatch({ type: "reRoll" }),
   });
 
