@@ -31,7 +31,7 @@ const classes = [
 
 // extra classes thrown in to help with biases
 const classesByStatName = {
-  str: [FIGHTER, BARBARIAN, BARBARIAN, PALADIN],
+  str: [FIGHTER, BARBARIAN, PALADIN],
   dex: [FIGHTER, ROGUE, RANGER, ROGUE, RANGER],
   int: [WIZARD],
   wis: [DRUID, DRUID, DRUID, CLERIC, MONK],
@@ -61,17 +61,34 @@ const pickClass = (stats) => {
   if (isEqual(topTwo, ["cha", "str"])) return PALADIN;
   if (isEqual(topTwo, ["cha", "dex"])) return BARD;
   if (isEqual(topTwo, ["str", "wis"])) return CLERIC;
+  if (isEqual(topTwo, ["dex", "con"])) return BARBARIAN;
 
   // bias class based on highest stat
   let highestStat = orderedStats[0];
 
-  // con doesn't bias you to a class well, so we'll take the next highest as your primary stat
-  if (highestStat.name === "con") highestStat = orderedStats[1];
   // Lots of Wizards showing up. This helps mitigate the Wizard bias
   if (highestStat.name === "int" && Math.random() > 0.4)
     highestStat = orderedStats[1];
+  // ditto Barbarians
+  if (highestStat.name === "con")
+    highestStat = orderedStats[1];
 
   return pickOne(classesByStatName[highestStat.name]);
+};
+
+export const allClasses = {
+  BARBARIAN,
+  BARD,
+  CLERIC,
+  DRUID,
+  FIGHTER,
+  MONK,
+  PALADIN,
+  RANGER,
+  ROGUE,
+  SORCERER,
+  WIZARD,
+  WARLOCK,
 };
 
 export default pickClass;

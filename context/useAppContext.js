@@ -6,11 +6,22 @@ import rollStats, {
   boringThreshold,
   isBoringChar,
 } from "./rollStats";
-import pickClass from "context/pickClass";
+import pickClass, { allClasses } from "context/pickClass";
+import valueToModifier from "utils/valueToModifier";
+
+import cb from 'utils/classBalanceChecker'
 
 const showMore = false;
 const allowWeak = false;
 const allowBoring = true;
+
+const deriveAC = (charClass, stats) => {
+  if (charClass === allClasses.MONK)
+    return 10 + valueToModifier(stats.wis) + valueToModifier(stats.dex);
+  if (charClass === allClasses.BARBARIAN)
+    return 10 + valueToModifier(stats.con) + valueToModifier(stats.dex);
+  return 12;
+};
 
 const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
   const [state, dispatch] = useReducer(
@@ -26,9 +37,11 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
       },
       reRoll: (draft) => {
         const newRolledStats = rollStats(draft);
+        const recommendedClass = pickClass(newRolledStats.stats);
         draft.stats = newRolledStats.stats;
         draft.race = newRolledStats.race;
-        draft.recommendedClass = pickClass(newRolledStats.stats);
+        draft.recommendedClass = recommendedClass;
+        draft.armourClass = deriveAC(recommendedClass, newRolledStats.stats);
       },
     },
     {
@@ -49,11 +62,13 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
     reRoll: () => dispatch({ type: "reRoll" }),
   });
 
+  const recommendedClass = pickClass(state.stats);
   return [
     {
       isWeak: isWeakChar(state.stats),
       isBoring: isBoringChar(state.stats),
-      recommendedClass: pickClass(state.stats),
+      recommendedClass,
+      armourClass: deriveAC(recommendedClass, state.stats),
 
       ...state,
     },
