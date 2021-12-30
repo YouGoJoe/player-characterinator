@@ -1,8 +1,8 @@
 import Head from "next/head";
+import Link from "next/link";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import StatsBlock from "@components/StatsBlock";
-import CharOptions from "@components/CharOptions";
+import { Button } from "@mui/material";
 
 export default function Home() {
   return (
@@ -14,8 +14,16 @@ export default function Home() {
 
       <main>
         <Header title="Prodigy Hackathon 2021!" />
-        <CharOptions />
-        <StatsBlock />
+        <Link href="/random">
+          <Button variant="contained" style={{ marginBottom: "8px" }} Í>
+            Get a random character!
+          </Button>
+        </Link>
+        <Link href="/survey">
+          <Button variant="contained">
+            Answer 3 quick questions to get a personalized character!
+          </Button>
+        </Link>
       </main>
 
       <Footer />
