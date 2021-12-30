@@ -9,8 +9,6 @@ import rollStats, {
 import pickClass, { allClasses } from "context/pickClass";
 import valueToModifier from "utils/valueToModifier";
 
-import cb from 'utils/classBalanceChecker'
-
 const showMore = false;
 const allowWeak = false;
 const allowBoring = true;
