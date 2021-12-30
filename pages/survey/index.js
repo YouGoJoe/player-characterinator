@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import Header from "@components/Header";
@@ -59,6 +59,10 @@ const raceBoxes = [
 
 export default function Survey() {
   const { classBiases, raceBiases, actions } = useContext(AppContext);
+
+  useEffect(() => {
+    actions.clearBiases();
+  }, []);
 
   const handleClassChange = ({ target }) => {
     if (target.checked) {
