@@ -41,12 +41,30 @@ const classes = [
   WARLOCK, // cha, con
 ];
 
+// extra classes thrown in to help with biases
+const classesByStatName = {
+  str: [FIGHTER, BARBARIAN, BARBARIAN, PALADIN],
+  dex: [FIGHTER, ROGUE, RANGER, ROGUE, RANGER],
+  int: [WIZARD],
+  wis: [DRUID, DRUID, DRUID, CLERIC, MONK],
+  cha: [BARD, SORCERER, SORCERER, SORCERER, WARLOCK, WARLOCK, WARLOCK],
+  con: classes,
+};
+
 const pickClass = (stats) => {
   const orderedStats = orderBy(
     Object.entries(stats).map(([name, value]) => ({ name, value })),
     "value",
     "desc"
   );
+
+  // tie for top stat. pick one from two highest stats
+  if (orderedStats[0].value === orderedStats[1].value) {
+    return pickOne([
+      ...classesByStatName[orderedStats[0].name],
+      ...classesByStatName[orderedStats[1].name],
+    ]);
+  }
 
   // stats heavily bias towards one class
   const topTwo = [orderedStats[0].name, orderedStats[1].name].sort();
@@ -61,15 +79,11 @@ const pickClass = (stats) => {
 
   // con doesn't bias you to a class well, so we'll take the next highest as your primary stat
   if (highestStat.name === "con") highestStat = orderedStats[1];
+  // Lots of Wizards showing up. This helps mitigate the Wizard bias
+  if (highestStat.name === "int" && Math.random() > 0.4)
+    highestStat = orderedStats[1];
 
-  if (highestStat.name === "str") return pickOne([FIGHTER, BARBARIAN, PALADIN]);
-  if (highestStat.name === "dex") return pickOne([ROGUE, FIGHTER, RANGER]);
-  if (highestStat.name === "int") return WIZARD;
-  if (highestStat.name === "wis") return pickOne([DRUID, CLERIC]);
-  if (highestStat.name === "cha") return pickOne([BARD, SORCERER, WARLOCK]);
-
-  // randomize
-  return pickOne(classes);
+  return pickOne(classesByStatName[highestStat.name]);
 };
 
 const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
