@@ -13,7 +13,6 @@ const allowWeak = false;
 const allowBoring = true;
 
 const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
-  const recommendedClass = pickClass(rolledStats.stats);
   const [state, dispatch] = useReducer(
     {
       toggleAllowWeak: (draft) => {
@@ -35,7 +34,6 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
     {
       stats: rolledStats.stats,
       race: rolledStats.race,
-      recommendedClass,
       weakThreshold,
       boringThreshold,
       allowWeak,
@@ -55,6 +53,7 @@ const useAppContext = (rolledStats = rollStats({ allowBoring, allowWeak })) => {
     {
       isWeak: isWeakChar(state.stats),
       isBoring: isBoringChar(state.stats),
+      recommendedClass: pickClass(state.stats),
 
       ...state,
     },
