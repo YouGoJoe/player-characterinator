@@ -154,8 +154,8 @@ export const isBoringChar = (stats) =>
 const rollStatsWithOptions = ({
   allowBoring,
   allowWeak,
-  classBiases,
-  raceBiases,
+  classBiases = [],
+  raceBiases = [],
 }) => {
   let tempStats = rollStats({ classBiases, raceBiases });
   while (
