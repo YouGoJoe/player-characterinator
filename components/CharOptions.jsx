@@ -32,7 +32,7 @@ const CharOptions = () => {
           />
         }
         label={`Allow 'Boring' Characters ${
-          showMore && `(No Stat above ${boringThreshold})`
+          showMore ? `(No Stat above ${boringThreshold})` : ""
         }`}
       />
       <FormControlLabel
@@ -43,7 +43,7 @@ const CharOptions = () => {
           />
         }
         label={`Allow 'Weak' Characters ${
-          showMore && `(Combined Stat total not above ${weakThreshold})`
+          showMore ? `(Combined Stat total not above ${weakThreshold})` : ""
         }`}
       />
     </FormGroup>
