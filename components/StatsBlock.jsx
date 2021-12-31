@@ -1,11 +1,10 @@
 import { useContext } from "react";
 import StatBlock from "./StatBlock";
+import CharImage from "./CharImage";
 import AppContext from "../context/AppContext";
-import CharTools from "./CharTools";
 
 const StatsBlock = () => {
-  const { stats, race, recommendedClass, armourClass, charImage } =
-    useContext(AppContext);
+  const { stats, race, recommendedClass, armourClass } = useContext(AppContext);
 
   return (
     <div>
@@ -28,7 +27,7 @@ const StatsBlock = () => {
           <StatBlock name="Wisdom" value={stats.wis} />
           <StatBlock name="Charisma" value={stats.cha} />
         </div>
-        {charImage ? <img src={charImage} height="250px" /> : null}
+        <CharImage />
       </div>
     </div>
   );

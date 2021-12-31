@@ -1,12 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Head from "next/head";
+import { Button } from "@mui/material";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
-import StatsBlock from "@components/StatsBlock";
+import SkillsView from "@components/SkillsView";
+import CharImage from "@components/CharImage";
 import AppContext from "../../context/AppContext";
 
-export default function Random() {
+export default function Character() {
   const { actions } = useContext(AppContext);
+  const [view, updateView] = useState("non-combat"); // combat, non-combat, resting
 
   return (
     <div className="container">
@@ -17,7 +20,34 @@ export default function Random() {
 
       <main>
         <Header title="Prodigy Hackathon 2021!" />
-        <StatsBlock />
+        <CharImage />
+
+        <div
+          style={{ display: "flex", alignItems: "center", marginTop: "16px" }}
+        >
+          <strong style={{ marginRight: "16px" }}>I am:</strong>
+          <Button
+            variant={view === "combat" ? "contained" : "outlined"}
+            onClick={() => updateView("combat")}
+          >
+            In Combat
+          </Button>
+          <Button
+            variant={view === "non-combat" ? "contained" : "outlined"}
+            onClick={() => updateView("non-combat")}
+          >
+            Not in Combat
+          </Button>
+          <Button
+            variant={view === "resting" ? "contained" : "outlined"}
+            onClick={() => updateView("resting")}
+          >
+            Resting
+          </Button>
+        </div>
+        {view === "combat" && <span>combat view</span>}
+        {view === "non-combat" && <SkillsView />}
+        {view === "resting" && <span>resting view</span>}
       </main>
 
       <Footer />
