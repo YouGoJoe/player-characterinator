@@ -10,7 +10,13 @@ import AppContext from "../../context/AppContext";
 
 export default function Character() {
   const { actions, recommendedClass, race } = useContext(AppContext);
-  const [view, updateView] = useState("non-combat"); // combat, non-combat, resting
+  const [view, updateView] = useState("combat"); // combat, non-combat, resting
+
+    // REMOVE ME
+    useEffect(() => {
+      actions.reRoll();
+    }, []);
+    // REMOVE ME
 
   return (
     <div className="container">
@@ -41,6 +47,7 @@ export default function Character() {
             Not in Combat
           </Button>
           <Button
+            disabled
             variant={view === "resting" ? "contained" : "outlined"}
             onClick={() => updateView("resting")}
           >
