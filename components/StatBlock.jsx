@@ -6,7 +6,7 @@ const StatBlock = ({ name, value }) => {
   const { showMore } = useContext(AppContext);
   const mod = valueToModifier(value);
   return (
-    <div style={{ marginBottom: "8px" }}>
+    <div style={{ marginBottom: "8px", fontSize: "20px" }}>
       {name} is {value} {showMore ? `(${mod >= 0 ? "+" : ""}${mod} MOD)` : ""}
     </div>
   );

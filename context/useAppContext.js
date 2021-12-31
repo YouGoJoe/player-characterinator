@@ -9,6 +9,22 @@ import rollStats, {
 import pickClass from "context/pickClass";
 import deriveAC from "context/deriveAC";
 
+const mapCharToSlug = (race, recommendedClass, gender) => {
+  if (!race || !recommendedClass || !gender) return null;
+  let raceSlug = race.toLowerCase();
+  if (raceSlug.includes("gnome")) raceSlug = "halfling"; // no gnomes?
+  if (raceSlug.includes("dwarf")) raceSlug = "dwarf";
+  if (raceSlug.includes("elf")) raceSlug = "elf";
+  if (raceSlug.includes("halfling")) raceSlug = "halfling";
+  if (raceSlug.includes("orc")) raceSlug = "orc";
+
+  // genderless pics
+  if (["dragonborn"].includes(raceSlug))
+    return `https://tetra-cube.com/dnd/dndimages/cardimages/characters/${raceSlug}/${recommendedClass.toLowerCase()}.jpg`;
+
+  return `https://tetra-cube.com/dnd/dndimages/cardimages/characters/${raceSlug}/${recommendedClass.toLowerCase()}-${gender}.jpg`;
+};
+
 const useAppContext = () => {
   const [state, dispatch] = useReducer(
     {
@@ -48,6 +64,7 @@ const useAppContext = () => {
         draft.race = newRolledStats.race;
         draft.recommendedClass = recommendedClass;
         draft.armourClass = deriveAC(recommendedClass, newRolledStats.stats);
+        draft.gender = Math.random() > 0.5 ? "male" : "female"; // just for images
       },
     },
     {
@@ -79,6 +96,11 @@ const useAppContext = () => {
     {
       isWeak: isWeakChar(state.stats),
       isBoring: isBoringChar(state.stats),
+      charImage: mapCharToSlug(
+        state.race,
+        state.recommendedClass,
+        state.gender
+      ),
 
       ...state,
     },
