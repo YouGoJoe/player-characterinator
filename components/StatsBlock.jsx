@@ -11,7 +11,7 @@ const StatsBlock = () => {
       <h2>Your Stats:</h2>
       <h3>Your race is: {race}</h3>
       <h3>Your class is: {recommendedClass}</h3>
-      <h3>Your AC is: {armourClass}</h3>
+      <h3>Your armour class is: {armourClass}</h3>
       <div
         style={{
           display: "flex",
