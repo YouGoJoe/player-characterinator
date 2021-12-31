@@ -1,3 +1,12 @@
+# Welcome to the Player Characterinator!
+
+This project is meant to help folks hit the ground running playing Dungeons and Dragons (5th Edition). This is done by generating playable characters with randomized stats, a (somewhat) appropriate class, and a minimal app that helps communicate in clear language what all these crazy numbers mean.
+
+The project (should) be deployed here -> (Netlify link)[https://jovial-visvesvaraya-aea0eb.netlify.app/]
+
+The clickable prototype that shows off the potential (should) be here -> [Figma link](https://www.figma.com/proto/h6gHSSS9FslvfYJbwnS7vY/DnD-Hackathon?page-id=0%3A1&node-id=8%3A691&viewport=241%2C48%2C0.37&scaling=scale-down&starting-point-node-id=8%3A691&hide-ui=1)
+
+
 # Next + Netlify Starter
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/46648482-644c-4c80-bafb-872057e51b6b/deploy-status)](https://app.netlify.com/sites/next-dev-starter/deploys)
