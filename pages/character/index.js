@@ -12,12 +12,6 @@ export default function Character() {
   const { actions, recommendedClass, race } = useContext(AppContext);
   const [view, updateView] = useState("combat"); // combat, non-combat, resting
 
-    // REMOVE ME
-    useEffect(() => {
-      actions.reRoll();
-    }, []);
-    // REMOVE ME
-
   return (
     <div className="container">
       <Head>

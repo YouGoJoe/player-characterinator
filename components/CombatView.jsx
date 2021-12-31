@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { shuffle } from "lodash";
 import AppContext from "../context/AppContext";
 import deriveToHit from "context/deriveToHit";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
@@ -24,11 +25,35 @@ const enemies = [
     armourClass: 12,
     toHitBonus: 4,
   },
+  {
+    name: "Hobgoblin",
+    label: "hobgoblin",
+    armourClass: 18,
+    toHitBonus: 3,
+  },
+  {
+    name: "Bugbear",
+    label: "bugbear",
+    armourClass: 16,
+    toHitBonus: 4,
+  },
+  {
+    name: "Imp",
+    label: "imp",
+    armourClass: 13,
+    toHitBonus: 5,
+  },
+  {
+    name: "Giant Wolf Spider",
+    label: "giant-wolf-spider",
+    armourClass: 13,
+    toHitBonus: 3,
+  },
 ];
 
 const CombatView = () => {
   const { armourClass, recommendedClass, stats } = useContext(AppContext);
-  const [selectedEnemy, changeSelectedEnemy] = useState(enemies[0]);
+  const [selectedEnemy, changeSelectedEnemy] = useState(shuffle(enemies)[0]);
   const { martialMod, spellMod } = deriveToHit(recommendedClass, stats);
 
   return (
@@ -105,7 +130,7 @@ const CombatView = () => {
       <div>
         They should be able to hit me about{" "}
         <strong>
-          {hitChance(armourClass, selectedEnemy.toHitBonus)}% of the time {" "}
+          {hitChance(armourClass, selectedEnemy.toHitBonus)}% of the time{" "}
         </strong>
         {armourClass <= 10 ? (
           <>
