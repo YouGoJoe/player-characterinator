@@ -6,7 +6,7 @@ const modToString = (mod) => {
   return mod >= 0 ? `+${mod}` : mod;
 };
 
-const CharImage = () => {
+const CombatView = () => {
   const { armourClass, recommendedClass, stats } = useContext(AppContext);
 
   const { martialMod, spellMod } = deriveToHit(recommendedClass, stats);
@@ -48,4 +48,4 @@ const CharImage = () => {
   );
 };
 
-export default CharImage;
+export default CombatView;
