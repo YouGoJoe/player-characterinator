@@ -4,11 +4,12 @@ import { Button } from "@mui/material";
 import Header from "@components/Header";
 import Footer from "@components/Footer";
 import SkillsView from "@components/SkillsView";
+import CombatView from "@components/CombatView";
 import CharImage from "@components/CharImage";
 import AppContext from "../../context/AppContext";
 
 export default function Character() {
-  const { actions } = useContext(AppContext);
+  const { actions, recommendedClass, race } = useContext(AppContext);
   const [view, updateView] = useState("non-combat"); // combat, non-combat, resting
 
   return (
@@ -21,6 +22,7 @@ export default function Character() {
       <main>
         <Header title="Prodigy Hackathon 2021!" />
         <CharImage />
+        <h3>I am a Level 1 {race} {recommendedClass}</h3>
 
         <div
           style={{ display: "flex", alignItems: "center", marginTop: "16px" }}
@@ -45,7 +47,7 @@ export default function Character() {
             Resting
           </Button>
         </div>
-        {view === "combat" && <span>combat view</span>}
+        {view === "combat" && <CombatView />}
         {view === "non-combat" && <SkillsView />}
         {view === "resting" && <span>resting view</span>}
       </main>

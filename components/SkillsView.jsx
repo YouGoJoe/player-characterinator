@@ -1,11 +1,6 @@
 import { useContext } from "react";
 import AppContext from "../context/AppContext";
-import valueToModifier from "utils/valueToModifier";
-
-const valueToStringMod = (value) => {
-  const mod = valueToModifier(value);
-  return mod >= 0 ? `+${mod}` : mod;
-};
+import valueToStringMod from "utils/valueToStringMod";
 
 const SkillsView = () => {
   const { stats } = useContext(AppContext);
