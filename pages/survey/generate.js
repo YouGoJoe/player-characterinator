@@ -4,6 +4,7 @@ import Header from "@components/Header";
 import Footer from "@components/Footer";
 import StatsBlock from "@components/StatsBlock";
 import CharOptions from "@components/CharOptions";
+import CharTools from "@components/CharTools";
 import AppContext from "../../context/AppContext";
 
 export default function Random() {
@@ -24,6 +25,7 @@ export default function Random() {
         <Header title="Prodigy Hackathon 2021!" />
         <CharOptions />
         <StatsBlock />
+        <CharTools />
       </main>
 
       <Footer />

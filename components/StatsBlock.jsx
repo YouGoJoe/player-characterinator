@@ -1,25 +1,10 @@
 import { useContext } from "react";
 import StatBlock from "./StatBlock";
 import AppContext from "../context/AppContext";
-import { Button } from "@mui/material";
-
-const WeakAlert = () => {
-  const { isWeak } = useContext(AppContext);
-  if (!isWeak) return null;
-
-  return <div>Weak char alert!</div>;
-};
-
-const BoringAlert = () => {
-  const { isBoring } = useContext(AppContext);
-
-  if (!isBoring) return null;
-
-  return <div>All-rounder alert!</div>;
-};
+import CharTools from "./CharTools";
 
 const StatsBlock = () => {
-  const { stats, race, recommendedClass, armourClass, charImage, actions } =
+  const { stats, race, recommendedClass, armourClass, charImage } =
     useContext(AppContext);
 
   return (
@@ -44,22 +29,6 @@ const StatsBlock = () => {
           <StatBlock name="Charisma" value={stats.cha} />
         </div>
         {charImage ? <img src={charImage} height="250px" /> : null}
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "16px",
-        }}
-      >
-        <WeakAlert />
-        <BoringAlert />
-        <Button variant="contained" onClick={() => actions.reRoll()}>
-          Re-roll stats
-        </Button>
       </div>
     </div>
   );
